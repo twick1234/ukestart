@@ -133,9 +133,67 @@ nav.tabs button.active { background: var(--koa); border-color: var(--koa); color
 .pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
 .pill { font-size: 12px; font-weight: 600; background: var(--paper); border: 1.5px solid var(--line); padding: 3px 10px; border-radius: 20px; }
 .pill.chord { color: var(--coral-deep); border-color: var(--coral); }
+
+/* inline chord diagrams shown inside each song — the "visual learner" view */
+.song-chords-row {
+  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+  padding: 14px 10px; margin: 12px 0 14px;
+  background: var(--paper);
+  border: 1.5px solid var(--line); border-radius: 12px;
+}
+.song-chord-card {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 10px; border-radius: 10px; cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: background 0.16s ease, transform 0.16s ease, border-color 0.16s ease;
+  user-select: none;
+}
+.song-chord-card:hover,
+.song-chord-card:focus-visible {
+  background: var(--paper-2); border-color: var(--coral); transform: translateY(-2px); outline: none;
+}
+.song-chord-card .song-chord-name {
+  font-family: var(--font-display); font-size: 18px; font-weight: 600;
+  color: var(--coral-deep); margin-bottom: 4px;
+}
+.song-chord-card svg { width: 90px; height: auto; }
+.song-chord-card .hint { font-size: 10px; color: var(--ink-soft); margin-top: 4px; letter-spacing: 0.5px; }
+.song-chord-card.missing { cursor: default; opacity: 0.55; }
+.song-chord-card.missing:hover { background: transparent; transform: none; border-color: transparent; }
+.song-chord-card.missing .missing-note {
+  font-size: 36px; color: var(--ink-soft); padding: 24px 0 16px;
+  font-family: var(--font-display);
+}
+@keyframes chord-pulse {
+  0%   { background: var(--coral); border-color: var(--coral-deep); transform: scale(1.06); box-shadow: 0 0 0 6px rgba(232, 98, 58, 0.18); }
+  100% { background: var(--paper-2); border-color: var(--coral); transform: translateY(-2px); box-shadow: none; }
+}
+.song-chord-card.pulse { animation: chord-pulse 0.6s ease; }
+
+/* strum pattern: arrows + the original text */
+.strum-line {
+  display: flex; align-items: center; gap: 10px; margin: 4px 0 6px;
+  flex-wrap: wrap; font-size: 13px;
+}
+.strum-arrows {
+  font-size: 18px; font-weight: 700; color: var(--teal);
+  letter-spacing: 1px; line-height: 1;
+}
+.strum-text { color: var(--ink-soft); font-style: italic; }
+
 .chart { font-family: 'Courier New', monospace; background: var(--paper); border: 2px dashed var(--line); border-radius: 12px; padding: 14px; margin-top: 10px; overflow-x: auto; }
 .chart .clane { color: var(--coral-deep); font-weight: 700; white-space: pre; }
 .chart .llane { white-space: pre; margin-bottom: 6px; }
+.chart .chord-tap {
+  cursor: pointer; padding: 0 2px; border-radius: 4px;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.chart .chord-tap:hover,
+.chart .chord-tap:focus-visible {
+  background: var(--coral); color: var(--paper); outline: none;
+}
+.chart .chord-tap:active { background: var(--coral-deep); }
+
 .tip { font-size: 13px; color: var(--teal); margin-top: 10px; display: flex; gap: 6px; }
 .transpose { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13px; }
 .transpose button { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--koa); background: var(--paper); color: var(--koa); font-weight: 700; cursor: pointer; }

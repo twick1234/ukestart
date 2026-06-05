@@ -32,6 +32,17 @@ test.describe('UkeStart app', () => {
     expect(errors, `pageerrors: ${errors.join(' | ')}`).toEqual([]);
   });
 
+  test('each song card shows inline chord diagrams (visual learner view)', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Songs' }).click();
+    const firstSong = page.locator('.song-card').first();
+    // The row of inline chord diagrams must exist and contain at least one SVG.
+    await expect(firstSong.locator('.song-chords-row')).toBeVisible();
+    await expect(firstSong.locator('.song-chord-card svg.chord-svg').first()).toBeVisible();
+    // And the chord names inside the chord-over-lyric chart must be tappable.
+    await expect(firstSong.locator('.chart .chord-tap').first()).toBeVisible();
+  });
+
   test('transposing a song changes its chords', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('button', { name: 'Songs' }).click();

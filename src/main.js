@@ -74,10 +74,51 @@ function chordsPanel() {
   </div>`;
 }
 
+// Wrap every chord token (e.g. "C", "Am", "G7", "C#") in the chord lane with a
+// clickable span so a learner can tap any chord in the chart to hear it AND
+// see the matching diagram pulse. Spaces are preserved verbatim, so alignment
+// with the lyric below is unchanged. Chord names are alphanumeric (+ # / b),
+// so HTML escaping is unnecessary but kept for safety.
 function chartHtml(song) {
-  return song.lines.map((line) =>
-    `<div class="clane">${esc(line.chords) || ' '}</div><div class="llane">${esc(line.lyric)}</div>`,
-  ).join('');
+  return song.lines.map((line) => {
+    const clane = (line.chords || '').replace(/[A-G][#b]?[^\s]*/g, (chord) =>
+      `<span class="chord-tap" data-play="${esc(chord)}" role="button" tabindex="0" aria-label="Play ${esc(chord)} chord">${esc(chord)}</span>`,
+    );
+    return `<div class="clane">${clane || ' '}</div><div class="llane">${esc(line.lyric)}</div>`;
+  }).join('');
+}
+
+// Render the chord diagrams for every chord used in this song (in its current,
+// possibly-transposed key). For chords not in the chord library (e.g. an
+// obscure transposition), render a placeholder so the learner sees the chord
+// name but knows we don't have the shape yet.
+function songChordDiagrams(song) {
+  return song.chords.map((name) => {
+    const chord = getChord(name);
+    if (!chord) {
+      return `<div class="song-chord-card missing" aria-label="${esc(name)} chord (shape not in library)">
+        <div class="song-chord-name">${esc(name)}</div>
+        <div class="missing-note">?</div>
+        <div class="hint">not in library</div>
+      </div>`;
+    }
+    return `<div class="song-chord-card" data-play="${esc(name)}" role="button" tabindex="0" aria-label="Play ${esc(name)} chord">
+      <div class="song-chord-name">${esc(name)}</div>
+      ${chordDiagramSVG(chord, { width: 90, height: 116 })}
+      <div class="hint">tap to hear</div>
+    </div>`;
+  }).join('');
+}
+
+// Replace "Down", "Up", "Down-Up", "Up-Down" with arrow glyphs so the strum
+// pattern reads as rhythm at a glance. Other text (e.g. "Waltz:", "per bar")
+// passes through unchanged.
+function strumArrows(text) {
+  return String(text)
+    .replace(/Down-Up/g, '↓↑')
+    .replace(/Up-Down/g, '↑↓')
+    .replace(/Down/g, '↓')
+    .replace(/Up/g, '↑');
 }
 
 function songsPanel() {
@@ -89,9 +130,9 @@ function songsPanel() {
     return `<article class="card song-card">
       <h3>${esc(song.title)}</h3>
       <div class="origin">${esc(song.origin)} · difficulty ${stars}</div>
-      <div class="pill-row">${song.chords.map((c) => `<span class="pill chord">${esc(c)}</span>`).join('')}</div>
-      <div class="pill-row"><span class="pill">Strum: ${esc(song.strum)}</span></div>
-      <div class="chart">${chartHtml(song)}</div>
+      <div class="song-chords-row" aria-label="chords used in this song">${songChordDiagrams(song)}</div>
+      <div class="strum-line"><span class="strum-arrows" aria-hidden="true">${esc(strumArrows(song.strum))}</span><span class="strum-text">${esc(song.strum)}</span></div>
+      <div class="chart" aria-label="chord-over-lyric chart">${chartHtml(song)}</div>
       <div class="tip">💡 ${esc(song.tip)}</div>
       <div class="transpose">
         <button data-trans="${base.id}" data-dir="-1" aria-label="transpose down">−</button>
@@ -102,7 +143,7 @@ function songsPanel() {
   }).join('');
   return `<div class="panel">
     <h2 class="section-head">Song book</h2>
-    <p class="section-sub">All public-domain songs and original exercises, so you can play freely. Use the key shift to move a song into a range that suits your voice — the chords update automatically.</p>
+    <p class="section-sub">Each song shows the exact chord shapes you need at the top — tap any chord (in the diagrams or in the chord chart below) to hear it. Use the key shift if a song sits too high or low for your voice.</p>
     <div class="grid songs">${cards}</div>
   </div>`;
 }
@@ -278,7 +319,21 @@ function onClick(e) {
   if (mic) { toggleMic(); return; }
 
   const play = e.target.closest('[data-play]');
-  if (play) { playChord(getChord(play.dataset.play)); return; }
+  if (play) {
+    const chordName = play.dataset.play;
+    playChord(getChord(chordName));
+    // Visual feedback: pulse the matching diagram card inside the same song.
+    const songCard = play.closest('.song-card');
+    if (songCard && typeof CSS !== 'undefined' && CSS.escape) {
+      const target = songCard.querySelector(`.song-chord-card[data-play="${CSS.escape(chordName)}"]`);
+      if (target) {
+        target.classList.remove('pulse');
+        void target.offsetWidth; // restart the animation
+        target.classList.add('pulse');
+      }
+    }
+    return;
+  }
 
   const tune = e.target.closest('[data-tunefreq]');
   if (tune) { playRefTone(parseFloat(tune.dataset.tunefreq)); return; }
