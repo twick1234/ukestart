@@ -84,7 +84,8 @@ function songsPanel() {
   const cards = SONGS.map((base) => {
     const offset = state.transpose[base.id] || 0;
     const song = offset ? transposeSong(base, offset) : base;
-    const stars = '★'.repeat(song.difficulty) + '☆'.repeat(3 - song.difficulty);
+    const d = Math.min(3, Math.max(1, song.difficulty));
+    const stars = '★'.repeat(d) + '☆'.repeat(3 - d);
     return `<article class="card song-card">
       <h3>${esc(song.title)}</h3>
       <div class="origin">${esc(song.origin)} · difficulty ${stars}</div>

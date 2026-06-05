@@ -217,7 +217,7 @@ export const SONGS = [
     id: 'rising-sun',
     title: 'House of the Rising Sun',
     origin: 'Traditional American (public domain)',
-    difficulty: 4,
+    difficulty: 3,
     chords: ['Am', 'C', 'D', 'F', 'E7'],
     strum: 'Fingerpick: p-i-m-a-m-i per bar (or slow Down, Down-Up)',
     tip: 'The classic Am–C–D–F–Am–E7 pattern repeats for every verse. If fingerpicking feels too hard, one slow down-strum per chord still sounds brilliant.',
