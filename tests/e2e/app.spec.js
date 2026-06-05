@@ -25,7 +25,8 @@ test.describe('UkeStart app', () => {
     await page.goto('/');
     await page.getByRole('button', { name: 'Songs' }).click();
     const firstChart = page.locator('.song-card').first();
-    await firstChart.locator('[data-dir="1"]').click();
+    await firstChart.scrollIntoViewIfNeeded();
+    await firstChart.getByRole('button', { name: 'transpose up' }).click();
     await expect(firstChart.locator('.transpose span')).toContainText('+1');
   });
 
