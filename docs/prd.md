@@ -51,13 +51,14 @@ Daily practice, not intensity, builds a fretting hand. The progress system rewar
 
 | In scope (v1) | Deliberately out of scope (v1) |
 |---|---|
-| 8-lesson beginner path | Intermediate/advanced curriculum |
+| 12-lesson beginner path (tune → fingerpicking) | Intermediate/advanced curriculum |
 | 13 beginner chords with audio | Full chord dictionary, alternate voicings |
-| 6 public-domain songs/exercises + transpose | Copyrighted song catalogue |
+| 12 public-domain songs/exercises + transpose | Copyrighted song catalogue |
 | Reference-tone **and live microphone** tuner | Polyphonic/chord detection |
 | Local progress, streak, XP | Accounts, cloud sync, social features |
 | Live mic pitch detection (autocorrelation) | Metronome, chord-change trainer |
 | Single-file offline build | Native mobile apps |
+| GitHub Pages live deployment | Custom domain (could add later) |
 
 Out-of-scope items are not rejected — several are sequenced as backlog seeds in `CLAUDE.md`.
 
@@ -67,8 +68,8 @@ Out-of-scope items are not rejected — several are sequenced as backlog seeds i
 
 Listed most-important first:
 
-1. **Zero-cost, zero-friction start works.** A non-technical user can open the standalone file and reach a playable first lesson with no install, account, or payment. *(Met: `standalone/UkeStart.html`.)*
-2. **The path is complete and coherent.** All 8 lessons render, each links to its practice target, and completion is tracked. *(Met.)*
+1. **Zero-cost, zero-friction start works.** A non-technical user can open the standalone file *or* visit the live URL and reach a playable first lesson with no install, account, or payment. *(Met: `standalone/UkeStart.html` + https://twick1234.github.io/ukestart/.)*
+2. **The path is complete and coherent.** All 12 lessons render, each links to its practice target, and completion is tracked. *(Met.)*
 3. **The three tools function.** Chords render and play; songs display and transpose correctly; tuner tones sound. *(Met; logic covered by unit tests.)*
 4. **The habit loop is honest.** Streaks increment only on consecutive days and reset after gaps; XP is not double-counted. *(Met; covered by `progress.test.js`.)*
 5. **It is maintainable and hand-off ready.** Pure logic is separated and tested; a `CLAUDE.md` and BMAD docs let another developer (human or AI) continue. *(Met.)*

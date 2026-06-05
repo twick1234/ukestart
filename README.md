@@ -1,6 +1,11 @@
 # UkeStart 🎶
 
-**A free, open-source ukulele learning app.** Lessons, a chord library with audio, a public-domain song book with live transposition, and a tuner — no subscription, no ads, no account.
+**A free, open-source ukulele learning app.** Lessons, a chord library with audio, a public-domain song book with live transposition, and a live microphone tuner — no subscription, no ads, no account.
+
+### ▶ Try it now: **https://twick1234.github.io/ukestart/**
+
+[![CI](https://github.com/twick1234/ukestart/actions/workflows/ci.yml/badge.svg)](https://github.com/twick1234/ukestart/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > Built as a complete, hand-off-ready project: working app + BMAD-style planning docs + a `CLAUDE.md` memory file so you can keep building it with Claude Code.
 
@@ -8,18 +13,24 @@
 
 ## The fastest way to start playing
 
-**Just want to learn?** Open `standalone/UkeStart.html` by double-clicking it. It is a single self-contained file — no install, no server, works offline. Done.
+**Just want to learn?** Three options, easiest first:
+
+1. **Web** — Open https://twick1234.github.io/ukestart/ — works on any device, mobile or desktop.
+2. **Offline** — Download `standalone/UkeStart.html` and double-click it. Single self-contained file, no install, works from `file://`.
+3. **Dev mode** — `npm install && npm run dev` if you want to hack on it.
 
 **Want to develop it?** You need [Node.js](https://nodejs.org) 18+.
 
 ```bash
 npm install        # install dependencies
 npm run dev        # start the app at http://localhost:5173
-npm test           # run the unit test suite (Vitest)
+npm test           # run the unit test suite (Vitest, 44 tests)
 npm run test:e2e   # run the end-to-end tests (Playwright)
 npm run build      # produce an optimised build in dist/
 npm run build:standalone  # regenerate the single-file standalone/UkeStart.html
 ```
+
+Every push to `main` runs the full test suite and auto-deploys to the live URL above.
 
 ---
 

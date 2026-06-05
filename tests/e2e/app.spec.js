@@ -21,6 +21,17 @@ test.describe('UkeStart app', () => {
     await expect(page.locator('.stat .big').nth(1)).toContainText('100');
   });
 
+  test('Songs panel renders every song without errors', async ({ page }) => {
+    const errors = [];
+    page.on('pageerror', (err) => errors.push(err.message));
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Songs' }).click();
+    // Every song in src/data/songs.js should render a card. If any throws
+    // (e.g. out-of-range difficulty), the count will be wrong.
+    await expect(page.locator('.song-card')).toHaveCount(12);
+    expect(errors, `pageerrors: ${errors.join(' | ')}`).toEqual([]);
+  });
+
   test('transposing a song changes its chords', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('button', { name: 'Songs' }).click();

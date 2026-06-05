@@ -6,6 +6,9 @@ This file orients Claude Code (or any AI dev agent) on the UkeStart codebase. Re
 
 UkeStart is a free, open-source ukulele learning web app. The product goal: get an absolute beginner from "I just unboxed a ukulele" to "I can strum a few songs" without paying for anything. The non-negotiable principle is **free and unencumbered** — that constrains content (public-domain songs only) and dependencies (no paid services).
 
+**Live:** https://twick1234.github.io/ukestart/ (auto-deploys from `main` on every push, gated on full test suite passing).
+**Repo:** https://github.com/twick1234/ukestart
+
 ## Bottom line for any change
 
 Before you write code, know these three rules:
@@ -53,6 +56,9 @@ A story is done when: the behaviour works in `npm run dev`; new pure logic has V
 ## Implemented highlights worth knowing
 
 - **Live microphone tuner.** `src/lib/pitch.js` is a pure autocorrelation pitch detector (unit-tested with synthetic sine waves); `src/ui/micTuner.js` owns `getUserMedia` + `AnalyserNode` and feeds samples to it each animation frame. The Tuner panel shows a live note, a cents needle, the nearest string, and an in-tune indicator, and falls back to reference tones when no mic is available. The mic stream is stopped when the user leaves the Tuner tab.
+- **Global error handler in `render()`.** If a panel function throws, the user sees a friendly error card instead of a blank screen, and the stack message is printed to the console. Added after a `difficulty: 4` value caused `'☆'.repeat(-1)` → `RangeError` and silently blanked the entire Songs panel.
+- **12 lessons, 12 songs, 13 chords.** Lessons drive a sequential path with `practice` links to chords/songs/tuner; songs are all public domain (traditional folk + pre-1929 Tin Pan Alley); chords are stored as `[G, C, E, A]` fret arrays.
+- **Single combined CI workflow.** `.github/workflows/ci.yml` runs unit + build + e2e on every push and PR, and gates deploy to GitHub Pages on the `test` job passing. There is no separate deploy workflow.
 
 ## Good next steps (backlog seeds)
 

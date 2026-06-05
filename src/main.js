@@ -257,9 +257,17 @@ const PANELS = {
 
 function render() {
   const root = document.getElementById('app');
-  root.innerHTML = `
-    <nav class="tabs">${TABS.map((t) => `<button class="${t === state.tab ? 'active' : ''}" data-tab="${t}">${t}</button>`).join('')}</nav>
-    ${PANELS[state.tab]()}`;
+  const nav = `<nav class="tabs">${TABS.map((t) => `<button class="${t === state.tab ? 'active' : ''}" data-tab="${t}">${t}</button>`).join('')}</nav>`;
+  let panel;
+  try {
+    panel = PANELS[state.tab]();
+  } catch (err) {
+    console.error('Panel render failed:', err);
+    panel = `<div class="panel"><h2 class="section-head">Something went wrong</h2>
+      <p class="section-sub">The ${esc(state.tab)} tab could not render. Try another tab, or reload the page. If this keeps happening, please open an issue with the message below.</p>
+      <pre style="background:var(--paper);border:2px dashed var(--coral);padding:14px;border-radius:12px;overflow:auto;font-size:13px;color:var(--coral-deep);">${esc(err && err.message || String(err))}</pre></div>`;
+  }
+  root.innerHTML = nav + panel;
 }
 
 function onClick(e) {
