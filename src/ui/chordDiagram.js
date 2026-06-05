@@ -3,6 +3,8 @@
 
 import { STRINGS } from '../data/chords.js';
 
+const escAttr = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
 export function chordDiagramSVG(chord, { width = 132, height = 168 } = {}) {
   if (!chord) return '';
   const fretsShown = 4;
@@ -16,7 +18,7 @@ export function chordDiagramSVG(chord, { width = 132, height = 168 } = {}) {
 
   const parts = [];
   parts.push(
-    `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${chord.name} chord diagram" class="chord-svg">`,
+    `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escAttr(chord.name)} chord diagram" class="chord-svg">`,
   );
 
   // Nut (thick top bar) — only when the chord is played in open position.
