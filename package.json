@@ -1,0 +1,32 @@
+{
+  "name": "ukestart",
+  "version": "1.0.0",
+  "description": "A free, open ukulele learning web app: lessons, chord library, public-domain songs, and a tuner.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install --with-deps chromium",
+    "build:standalone": "node scripts/build-standalone.mjs"
+  },
+  "keywords": [
+    "ukulele",
+    "music",
+    "education",
+    "open-source"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "esbuild": "^0.28.0",
+    "happy-dom": "^15.0.0",
+    "vite": "^5.4.0",
+    "vitest": "^2.1.0"
+  }
+}
