@@ -38,7 +38,7 @@ export const LESSONS = [
     steps: [
       'C is the friendliest chord on the instrument: one finger. Put your ring finger on the 3rd fret of the bottom A string.',
       'Press just behind the fret, not on top of it, and keep your other strings open.',
-      'Strum slowly and check each string rings clearly. Open the Chords tab and tap C to see the diagram.',
+      'Strum slowly and check each string rings clearly. Open the Chords tab and tap C to see the diagram. Then try "Down in the Valley" in the Songs tab — the whole song is almost just C.',
     ],
     practice: { type: 'chord', name: 'C' },
   },
@@ -64,7 +64,7 @@ export const LESSONS = [
     steps: [
       'F uses two fingers: index on the 1st fret of the E string, middle on the 2nd fret of the G string.',
       'The C to F change is the most common move in popular music. Drill it slowly.',
-      'Play "Twinkle, Twinkle, Little Star" — it only needs C, F, and G7.',
+      'Play "Twinkle, Twinkle" in the Songs tab to lock in the three chords, then try "La Bamba" — same three chords (C, F, G) but with a driving Latin groove.',
     ],
     practice: { type: 'song', id: 'twinkle' },
   },
@@ -77,7 +77,7 @@ export const LESSONS = [
     steps: [
       'G7 is a compact three-finger shape that sounds like it wants to resolve home to C.',
       'C, F and G7 together (the I-IV-V7 family in the key of C) cover an enormous number of folk and pop songs.',
-      'Play "When the Saints Go Marching In" to put all three to work.',
+      'Play "When the Saints Go Marching In" and "Take Me Out to the Ballgame" in the Songs tab — both are classic C-F-G7 songs.',
     ],
     practice: { type: 'song', id: 'saints' },
   },
@@ -90,7 +90,7 @@ export const LESSONS = [
     steps: [
       'Until now you have strummed only down. Now let your hand keep moving down-up like a pendulum, but only touch the strings when you want a strum.',
       'The classic beginner pattern is: Down, Down-Up, Up, Down-Up. Count it as "one, two-and, and, four-and".',
-      'Apply it to the "Three-Chord Town" exercise (C, F, G).',
+      'Apply it to "La Bamba" in the Songs tab — it is nothing but C-F-G on repeat, so you can focus entirely on the rhythm.',
     ],
     practice: { type: 'song', id: 'sloop' },
   },
@@ -101,9 +101,9 @@ export const LESSONS = [
     minutes: 12,
     goal: 'Use minor chords for emotional color.',
     steps: [
-      'Dm adds a wistful colour. The famous I-vi-IV-V progression (C, Am, F, G) is behind countless ballads.',
-      'Practice moving around the four-chord loop in time.',
-      'Once it is smooth, try transposing the loop to a new key using the Transpose tool in the Songs tab.',
+      'Dm adds a wistful colour. Open the Chords tab and compare it to Am — same string, one fret across.',
+      'Try "Scarborough Fair" in the Songs tab: it is built around Dm and is one of the most satisfying songs to play quietly.',
+      'Once Dm feels reliable, try transposing Scarborough Fair to a different key using the key-shift buttons.',
     ],
     practice: { type: 'chord', name: 'Dm' },
   },
@@ -142,7 +142,7 @@ export const LESSONS = [
     steps: [
       'Rest your thumb on the top two strings (g and C) and assign index to the E string and middle to the A string.',
       'Hold a C chord and pick in this order: g, C, E, A, then back E, C. Keep it slow and even — evenness is the whole skill.',
-      'Picking the same chords you already strum instantly makes a song sound gentler and more advanced.',
+      'Try "House of the Rising Sun" in the Songs tab — its Am–C–D–F–E7 pattern was made for fingerpicking and sounds immediately impressive.',
     ],
     practice: { type: 'chord', name: 'C' },
   },
